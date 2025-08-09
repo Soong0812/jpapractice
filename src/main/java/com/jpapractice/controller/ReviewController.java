@@ -13,7 +13,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ReviewController {
-    public final ReviewService reviewService;
+
+    private final ReviewService reviewService;
 
     @PostMapping("/movies/{movieId}/reviews")
     public ResponseEntity<ReviewResponse> saveReview(
