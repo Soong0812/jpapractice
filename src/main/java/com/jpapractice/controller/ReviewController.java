@@ -30,4 +30,21 @@ public class ReviewController {
     ) {
         return ResponseEntity.ok(reviewService.findAll(movieId));
     }
+
+    @GetMapping("movies/{movieId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewResponse> getReviewById(
+            @PathVariable Long movieId,
+            @PathVariable Long reviewId
+    ) {
+        return ResponseEntity.ok(reviewService.findById(movieId, reviewId));
+    }
+
+    @PutMapping("movies/{movieId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewResponse> updateReview(
+            @PathVariable Long movieId,
+            @PathVariable Long reviewId,
+            @RequestBody ReviewRequest request
+    ) {
+        return ResponseEntity.ok(reviewService.update(movieId, reviewId, request));
+    }
 }

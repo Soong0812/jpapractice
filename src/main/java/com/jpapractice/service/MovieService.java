@@ -4,7 +4,7 @@ import com.jpapractice.dto.MovieRequest;
 import com.jpapractice.dto.MovieResponse;
 import com.jpapractice.entity.Movie;
 import com.jpapractice.repository.MovieRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +35,22 @@ public class MovieService {
                         movie.getTitle()
                 )).toList();
     }
+
+    //단건조회 (readOnly)
+    @Transactional(readOnly = true)
+    public MovieResponse findById(Long movieId) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new IllegalArgumentException("그런 movieId의 movie는 없습니다"));
+        return new MovieResponse(movie.getId(), movie.getTitle());
+    }
+
+    //수정
+    @Transactional
+    public MovieResponse update(Long movieId, MovieRequest request) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(
+                () -> new IllegalArgumentException("그런 movieId의 movie는 없습니다"));
+        movie.updateTitle(request.getTitle());
+        return new MovieResponse(movie.getId(), movie.getTitle());
+    }
+
 }

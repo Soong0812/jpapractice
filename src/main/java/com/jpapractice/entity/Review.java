@@ -22,4 +22,8 @@ public class Review {
         this.content = content;
         this.movie = movie;
     }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }
